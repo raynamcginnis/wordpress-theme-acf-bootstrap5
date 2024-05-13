@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+        <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+        <?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
+        <?php wp_head(); ?>
+    
 </head>
 <body>
 <div id="container">
@@ -24,13 +28,15 @@
         </div>
         <div class="search">
         <form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
-		<input type="search" class="search-field"
+		<input id="search_field" type="search" class="search-field"
 			placeholder="<?php echo esc_attr_x( 'Search for…', 'placeholder' ) ?>"
 			value="<?php echo get_search_query() ?>" name="s"
 			title="<?php echo esc_attr_x( 'Search for:', 'label' ) ?>" />
-	<input type="submit" class="search-submit"
+	<input id="search_btn" type="submit" class="search-submit"
 		value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
-</form> </div>
+</form>
+</div>
+    <div class="clearfix"></div>
         <nav class="main-menu">
         <?php wp_nav_menu() ; ?>
         </nav>
@@ -51,15 +57,23 @@
 	            <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
             <?php endif; ?>
         </article>
-        <aside class="sidebar"></aside>
+        <aside class="sidebar">
+        <?php if ( is_active_sidebar( 'home_sidebar' ) ) : ?>
+                <?php dynamic_sidebar( 'home_sidebar' ); ?>
+            <?php endif; ?>
+        </aside>
+        <div class="clearfix"></div>
     </section>
     <footer class="main-footer">
-        <aside class="footer-box"></aside>
-        <aside class="footer-box"></aside>
-        <aside class="footer-box"></aside>
-        <aside class="footer-box"></aside>
-    </footer>
-    <div class="powered"></div>
-</div>    
+    <?php if ( is_active_sidebar('home_footer_widgets' ) ) : ?>
+                <?php dynamic_sidebar( 'home_footer_widgets' ); ?>
+            <?php endif; ?>
+            <div class="clearfix"></div>
+    </footer>    
+    <div class="powered">
+        <p><small>Powered by <a href="<?php echo bloginfo('url')?>"><?php echo bloginfo('name') ?></a> | © <?php echo date('Y') ?></small></p>
+    </div>
+</div>  
+<?php wp_footer(); ?>  
 </body>
 </html>
