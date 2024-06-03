@@ -1,12 +1,7 @@
 <?php get_header() ?>
-
-    <section class="banner">
-            <?php if ( is_active_sidebar( 'home_banner_slider' ) ) : ?>
-		    <?php dynamic_sidebar( 'home_banner_slider' ); ?>
-        <?php endif; ?>
-    </section>
     <section class="content-holder">
         <article class="content">
+            <h1>Search results for "<?php echo get_search_query(); ?>"</h1>
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
                 <div class="article">
                     <h2><a href="<?php the_permalink() ?>"><?php echo get_the_title() ?></a></h2>
@@ -17,10 +12,9 @@
             <?php endif; ?>
         </article>
         <aside class="sidebar">
-        <?php get_sidebar() ?>
+            <?php get_sidebar() ?>
         </aside>
         <div class="clearfix"></div>
     </section>
 
     <?php get_footer() ?>
-    

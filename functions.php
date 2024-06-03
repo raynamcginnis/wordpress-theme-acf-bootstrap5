@@ -20,6 +20,9 @@ add_theme_support( 'custom-logo', array(
 		'header-text'          => array( 'site-title', 'site-description' ),
 ) );
 
+// add featured images
+add_theme_support( 'post-thumbnails' );
+
 // Add HTML5 Theme Support
 function wpdocs_after_setup_theme() {
 	add_theme_support( 'html5', array( 'search-form' ) );
